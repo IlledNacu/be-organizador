@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from './models/User';
 import express from 'express';
-// import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import { Note } from './models/Note';
+import cors from 'cors';
 
 export const AppDataSource = new DataSource({
     type: 'mysql',                // Cambia el tipo de base de datos
@@ -33,11 +33,11 @@ AppDataSource.initialize()
     });
 
 // Middleware CORS - Permitir solicitudes desde el frontend (puerto 5173)
-// app.use(cors({
-//     origin: 'http://localhost:5173', // Permitir solicitudes solo desde este origen (frontend)
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
-//     allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-// }));
+app.use(cors({
+    origin: 'http://localhost:5173', // Permitir solicitudes solo desde este origen (frontend)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+}));
 
 // Middleware
 app.use(express.json());

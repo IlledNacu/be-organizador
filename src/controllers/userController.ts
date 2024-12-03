@@ -1,31 +1,31 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../app';
 import { User } from '../models/User';
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 
-export const registerUser = async (req: Request, res: Response): Promise<void> => {
-    const { name, email, password } = req.body;
+// export const registerUser = async (req: Request, res: Response): Promise<void> => {
+//     const { name, email, password } = req.body;
 
-    try {
-        if (!name || !email || !password) {
-            res.status(400).json({ error: 'Todos los campos son obligatorios' });
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
+//     try {
+//         if (!name || !email || !password) {
+//             res.status(400).json({ error: 'Todos los campos son obligatorios' });
+//         }
+//         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const userRepository = AppDataSource.getRepository(User);
-        const newUser = userRepository.create({
-            name,
-            email,
-            password: hashedPassword,
-        });
-        const savedUser = await userRepository.save(newUser);
+//         const userRepository = AppDataSource.getRepository(User);
+//         const newUser = userRepository.create({
+//             name,
+//             email,
+//             password: hashedPassword,
+//         });
+//         const savedUser = await userRepository.save(newUser);
 
-        res.status(201).json(savedUser);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al registrar usuario' });
-    }
-};
+//         res.status(201).json(savedUser);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Error al registrar usuario' });
+//     }
+// };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
@@ -41,7 +41,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             res.status(404).json({ error: 'Usuario no encontrado' });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, existingUser!.password);
+        const isPasswordValid = password == existingUser!.password;
 
         if (!isPasswordValid) {
             res.status(401).json({ error: 'Contraseña incorrecta' });

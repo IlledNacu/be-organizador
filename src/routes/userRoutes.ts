@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { deleteUser, getUser, getUsers, login, putUser, registerUser } from '../controllers/userController';
+import { deleteUser, getUser, getUsers, login, putUser } from '../controllers/userController';
 import { deleteNote, getNote, getNotes, postNote, putNote } from '../controllers/notesController';
 
 const router = Router();
@@ -10,7 +10,7 @@ router.get('/user/:id', getUser);
 router.put('/users/:id', putUser);
 router.delete('/users/:id', deleteUser);
 router.post('/users/login', login);
-router.post('/users/register', registerUser);
+//router.post('/users/register', registerUser);
 
 //Notas
 router.get('/notes/:creatorId', getNotes);
